@@ -45,11 +45,40 @@ char	*get_next_line(int fd)
 
 int	main(void)
 {
-	auto char	*path = "example.txt";
-	auto int	 fd = open(path, O_RDONLY);
+	auto int	 fd = open("example.txt", O_RDONLY);
+	auto int	 fd2 = open("example2.txt", O_RDONLY);
+	auto int	 fd3 = open("example3.txt", O_RDONLY);
 	char	*line;
 
 	line = get_next_line(fd);
+	printf("%s", line);
+	free(line);
+	
+	line = get_next_line(fd2);
+	printf("%s", line);
+	free(line);
+
+	line = get_next_line(fd);
+	printf("%s", line);
+	free(line);
+
+	line = get_next_line(fd3);
+	printf("%s", line);
+	free(line);
+
+	line = get_next_line(fd3);
+	printf("%s", line);
+	free(line);
+
+	line = get_next_line(fd3);
+	printf("%s", line);
+	free(line);
+
+	line = get_next_line(fd3);
+	printf("%s", line);
+	free(line);
+
+	line = get_next_line(fd3);
 	printf("%s", line);
 	free(line);
 
