@@ -10,23 +10,32 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 char	*get_next_line(int fd)
 {
-	static char	buffer[BUFFER_SIZE + 1];
+	static char	buffer[FD_LIM][BUFFER_SIZE + 1];
 	char		*line;
 	int			len;
 
 	line = NULL;
-	if (fd < 0 || BUFFER_SIZE < 1 || read(fd, buffer, 0) < 0)
+	if (fd < 0 || fd >= FD_LIM || BUFFER_SIZE < 1)
 		return (NULL);
-	len = read(fd, buffer, BUFFER_SIZE);
+	len = 1;
+	if (!buffer[fd][0])
+		len = read(fd, buffer[fd], BUFFER_SIZE);
+	while (len > 0)
+	{
+		line = ft_strjoin(line, buffer[fd]);
+		if (ft_strchr(line, '\n'))
+			break ;
+		len = read(fd, buffer[fd], BUFFER_SIZE);
+	}
 	if (len < 0)
 	{
 		if (line)
 			free(line);
-		len = read(fd, buffer, BUFFER_SIZE);
+		return (NULL);
 	}
 	return (line);
 }

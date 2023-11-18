@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+#include <unistd.h>
 
 char	*get_next_line(int fd)
 {
@@ -19,14 +20,23 @@ char	*get_next_line(int fd)
 	int			len;
 
 	line = NULL;
-	if (fd < 0 || BUFFER_SIZE < 1 || read(fd, buffer, 0) < 0)
+	if (fd < 0 || BUFFER_SIZE < 1)
 		return (NULL);
-	len = read(fd, buffer, BUFFER_SIZE);
+	len = 1;
+	if (!buffer[0])
+		len = read(fd, buffer, BUFFER_SIZE);
+	while (len > 0)
+	{
+		line = ft_strjoin(line, buffer);
+		if (ft_strchr(line, '\n'))
+			break ;
+		len = read(fd, buffer, BUFFER_SIZE);
+	}
 	if (len < 0)
 	{
 		if (line)
 			free(line);
-		len = read(fd, buffer, BUFFER_SIZE);
+		return (NULL);
 	}
 	return (line);
 }

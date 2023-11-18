@@ -19,6 +19,7 @@
 # include <stdlib.h>
 
 // defining buffer size
+// can change buffer size with flag -D BUFFER_SIZE=n
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 1
