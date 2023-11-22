@@ -17,12 +17,13 @@
 
 # include <unistd.h>
 # include <stdlib.h>
+# include <stdio.h>
 
 // maximum ammount of FOPEN_MAX is 16
 // FD_LIM is defined as FOPEN_MAX in bits/stdio_lim.h 
 
 # ifndef FD_LIM
-#  define FD_LIM 16 
+#  define FD_LIM FOPEN_MAX 
 # endif
 
 // defining buffer size

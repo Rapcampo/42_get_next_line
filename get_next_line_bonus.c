@@ -16,7 +16,7 @@ char	*get_next_line(int fd)
 {
 	static char	buffer[FD_LIM][BUFFER_SIZE + 1];
 	char		*line;
-	int			len;
+	ssize_t		len;
 
 	line = NULL;
 	if (fd < 0 || fd >= FD_LIM || BUFFER_SIZE < 1)
